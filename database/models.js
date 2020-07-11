@@ -66,4 +66,6 @@ course.hasMany(batch)
 center.hasMany(batch)
 season.hasMany(batch)
 
-db.sync()
+// db.sync()
+
+module.exports = { db, course, teacher, center, season, batch }
