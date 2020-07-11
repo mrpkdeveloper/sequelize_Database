@@ -3,7 +3,7 @@ const { db, center, batch, season, course, teacher } = require('./models')
 const seed = async () => {
     try {
 
-        db.sync({ alter: true })
+        // db.sync({ alter: true })
         await center.bulkCreate([
             { id: "PP", name: "pitampura", city: "delhi" },
             { id: "DW", name: "dwarka", city: "delhi" },
