@@ -34,13 +34,32 @@ app.post('/batchcode', async (req, res) => {
     batchcode += req.body.year.substr(2)
     batchcode += req.body.season
     batchcode += req.body.batch_no
-    res.send(batchcode)
+
+    try {
+        const new_batch = await batch.create({
+            code: batchcode,
+            year: req.body.year,
+            courseId: req.body.course,
+            centerId: req.body.center,
+            seasonId: req.body.season,
+            start: Date.parse(req.body.start),
+            end: Date.parse(req.body.end),
+        })
+        // console.log(new_batch)
+        res.send(new_batch.code)
+
+    } catch (e) {
+        console.error(e)
+    }
+
 
 })
 
 app.use('/batches', async (req, res) => {
     try {
-        const batches = await batch.findAll()
+        const batches = await batch.findAll({
+            include: [course, season, center]
+        })
         res.render('batches', { batches })
 
 
